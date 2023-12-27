@@ -7,12 +7,12 @@ import { toast } from "react-hot-toast";
 import { useParams, useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuTrigger,
+import { 
+  DropdownMenu, 
+  DropdownMenuContent, 
+  DropdownMenuItem, 
+  DropdownMenuLabel, 
+  DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
 import { AlertModal } from "@/components/modals/alert-modal";
 
@@ -22,7 +22,9 @@ interface CellActionProps {
   data: SizeColumn;
 }
 
-export const CellAction: React.FC<CellActionProps> = ({ data }) => {
+export const CellAction: React.FC<CellActionProps> = ({
+  data,
+}) => {
   const router = useRouter();
   const params = useParams();
   const [open, setOpen] = useState(false);
@@ -32,10 +34,10 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
     try {
       setLoading(true);
       await axios.delete(`/api/${params.storeId}/sizes/${data.id}`);
-      toast.success("Size deleted.");
+      toast.success('Size deleted.');
       router.refresh();
     } catch (error) {
-      toast.error("Make sure you removed all products using this size first.");
+      toast.error('Make sure you removed all products using this size first.');
     } finally {
       setOpen(false);
       setLoading(false);
@@ -44,13 +46,13 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
 
   const onCopy = (id: string) => {
     navigator.clipboard.writeText(id);
-    toast.success("Size ID copied to clipboard.");
-  };
+    toast.success('Size ID copied to clipboard.');
+  }
 
   return (
     <>
-      <AlertModal
-        isOpen={open}
+      <AlertModal 
+        isOpen={open} 
         onClose={() => setOpen(false)}
         onConfirm={onConfirm}
         loading={loading}
@@ -64,7 +66,9 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-          <DropdownMenuItem onClick={() => onCopy(data.id)}>
+          <DropdownMenuItem
+            onClick={() => onCopy(data.id)}
+          >
             <Copy className="mr-2 h-4 w-4" /> Copy Id
           </DropdownMenuItem>
           <DropdownMenuItem
@@ -72,7 +76,9 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
           >
             <Edit className="mr-2 h-4 w-4" /> Update
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => setOpen(true)}>
+          <DropdownMenuItem
+            onClick={() => setOpen(true)}
+          >
             <Trash className="mr-2 h-4 w-4" /> Delete
           </DropdownMenuItem>
         </DropdownMenuContent>

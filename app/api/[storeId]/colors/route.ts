@@ -1,8 +1,8 @@
-import { NextResponse } from "next/server";
+import { NextResponse } from 'next/server';
 
-import prismadb from "@/lib/prismadb";
-import { auth } from "@clerk/nextjs";
-
+import prismadb from '@/lib/prismadb';
+import { auth } from '@clerk/nextjs';
+ 
 export async function POST(
   req: Request,
   { params }: { params: { storeId: string } }
@@ -33,8 +33,8 @@ export async function POST(
     const storeByUserId = await prismadb.store.findFirst({
       where: {
         id: params.storeId,
-        userId,
-      },
+        userId
+      }
     });
 
     if (!storeByUserId) {
@@ -45,16 +45,16 @@ export async function POST(
       data: {
         name,
         value,
-        storeId: params.storeId,
-      },
+        storeId: params.storeId
+      }
     });
-
+  
     return NextResponse.json(color);
   } catch (error) {
-    console.log("[COLORS_POST]", error);
+    console.log('[COLORS_POST]', error);
     return new NextResponse("Internal error", { status: 500 });
   }
-}
+};
 
 export async function GET(
   req: Request,
@@ -67,13 +67,13 @@ export async function GET(
 
     const colors = await prismadb.color.findMany({
       where: {
-        storeId: params.storeId,
-      },
+        storeId: params.storeId
+      }
     });
-
+  
     return NextResponse.json(colors);
   } catch (error) {
-    console.log("[COLORS_GET]", error);
+    console.log('[COLORS_GET]', error);
     return new NextResponse("Internal error", { status: 500 });
   }
-}
+};

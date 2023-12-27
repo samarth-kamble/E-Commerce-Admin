@@ -15,17 +15,16 @@ interface ColorClientProps {
   data: ColorColumn[];
 }
 
-export const ColorClient: React.FC<ColorClientProps> = ({ data }) => {
+export const ColorClient: React.FC<ColorClientProps> = ({
+  data
+}) => {
   const params = useParams();
   const router = useRouter();
 
   return (
     <>
       <div className="flex items-center justify-between">
-        <Heading
-          title={`Colors (${data.length})`}
-          description="Manage colors for your products"
-        />
+        <Heading title={`Colors (${data.length})`} description="Manage colors for your products" />
         <Button onClick={() => router.push(`/${params.storeId}/colors/new`)}>
           <Plus className="mr-2 h-4 w-4" /> Add New
         </Button>
